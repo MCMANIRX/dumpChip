@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.13)
+set(PICO_BOARD pico_w CACHE STRING "Board type")
 
 #build fcns
-include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+include(pico_sdk_import.cmake)
 #include($ENV{PICO_EXTRAS_PATH}/external/pico_extras_import.cmake)
 #include(pico_extras_import.cmake)
 
@@ -30,21 +31,6 @@ pico_sdk_init()
 
 
 add_executable(${PROJECT_NAME}
-   # raw.c
-   # frame_test.c
-   # frame_test.h
-   # waveshare_frame.c
-   # barometer.c
-   # run_motors.c
-  #temp.c
-
-    #vga_out.c
-    # ./lib/GUI/GUI_Paint.c
-    
-
-    #ErinLED.c
-    #runMotors.c
-
     dump.c
     
     )
@@ -61,6 +47,7 @@ pico_add_extra_outputs(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     pico_stdlib
     hardware_spi
+    pico_bootrom   
 
     
     
@@ -70,3 +57,4 @@ target_link_libraries(${PROJECT_NAME}
 
 pico_enable_stdio_usb(dump 1)
 pico_enable_stdio_uart(dump 0)
+pico_add_extra_outputs(dump)
